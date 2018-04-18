@@ -21,7 +21,7 @@ contract BasicToken {
 // 
   function transfer(address _to, uint256 _value) public returns (bool) {
     require(_to != address(0)); // this is an assertion to chack the 0x0 address
-    require(_value <= balances[msg.sender]); // make sure the sender has some tokens
+    require(_value <= balances[msg.sender]); // make sure the sender has some tokens, would be able to send as much as you wanted if not there, not a security flwa if not there
     
     balances[msg.sender] = balances[msg.sender] - _value;
     balances[_to] = balances[_to] + _value;
