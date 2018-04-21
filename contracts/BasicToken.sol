@@ -19,17 +19,17 @@ contract BasicToken {
     return totalSupply_;
   }
 // 
-  function transfer(address _to, uint256 _value) public returns (bool) {
+  function transfer(address _to, uint256 _value) public returns (bool) { // can be (bool sucess) but then would have to return "success"
     require(_to != address(0)); // this is an assertion to chack the 0x0 address
     require(_value <= balances[msg.sender]); // make sure the sender has some tokens, would be able to send as much as you wanted if not there, not a security flwa if not there
     
-    balances[msg.sender] = balances[msg.sender] - _value;
-    balances[_to] = balances[_to] + _value;
-    Transfer(msg.sender, _to, _value);
-    return true;
+    balances[msg.sender] = balances[msg.sender] - _value; // takes amt from sender
+    balances[_to] = balances[_to] + _value; // adds amt to receiver
+    emit Transfer(msg.sender, _to, _value); // whomever is listending to this event can update their stuff accordingly
+    return true; // 
   }
 
   function balanceOf(address _owner) public view returns (uint256 balance) {
-    return balances[_owner];
+    return balances[_owner]; // if the address is on the mapping it returns the blance if its not then returns 0
   }
 }
